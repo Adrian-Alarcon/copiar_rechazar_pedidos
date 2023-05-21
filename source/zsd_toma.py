@@ -129,7 +129,8 @@ def toma_prd(nro_pedido, nuevo_rnos, fecha, sesionsap):
                     session.findById("wnd[1]/usr/btnBUTTON_1").press()
                 except:
                     break
-                    # pass
+
+            # Boton de grabar
             session.findById("wnd[1]/tbar[0]/btn[0]").press()
             mensaje = session.findById("wnd[0]/sbar").text
             nuevo_pedido_toma = mensaje[23:30]

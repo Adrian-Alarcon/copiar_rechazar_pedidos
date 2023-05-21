@@ -5,37 +5,30 @@ from time import sleep
 from datetime import datetime
 
 def va01_2(sesionsap, fecha, pedido):
-
-     #----------------------------#
      pythoncom.CoInitialize()
-
      SapGuiAuto = win32com.client.GetObject('SAPGUI')
      if not type(SapGuiAuto) == win32com.client.CDispatch:
           return
-
      application = SapGuiAuto.GetScriptingEngine
      if not type(application) == win32com.client.CDispatch:
           SapGuiAuto = None
           return
      connection = application.Children(0)
-
      if not type(connection) == win32com.client.CDispatch:
           application = None
           SapGuiAuto = None
           return
-
      session = connection.Children(sesionsap)
      if not type(session) == win32com.client.CDispatch:
           connection = None
           application = None
           SapGuiAuto = None
           return
-     #----------------------------#
+
      try:
           date_time = datetime.strptime(str(fecha), "%Y%m%d")
           fecha_formato_sap = datetime.strftime(date_time, "%d.%m.%Y")
 
-          # session.findById("wnd[0]").maximize()
           session.findById("wnd[0]/tbar[0]/okcd").text = "/NVA02"
           session.findById("wnd[0]").sendVKey(0)
           session.findById("wnd[0]/usr/ctxtVBAK-VBELN").text = pedido
